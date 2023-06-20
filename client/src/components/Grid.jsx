@@ -1,18 +1,68 @@
 import { useState, useEffect } from 'react'
+import WinModal from './Modal'
+
 
 const Grid = ({setButtonValue, buttonValue}) => {
 
+  const [win, setWin] = useState(false)
+
+  const validate = (wordleAnswer, word) => { 
+    const colors = []
+    if (wordleAnswer.length === word.length && word !== '') {
+      if(wordleAnswer === word){
+        setWin(true)
+      }
+  
+      for (let i = 0; i < wordleAnswer.length; i++) {
+        if (wordleAnswer[i] === word[i]) {
+          colors.splice(i, 0, 'green');
+        } else if (wordleAnswer.includes(word[i])) {
+          colors.splice(i, 0, 'yellow')
+        }
+        else{
+          colors.splice(i, 0, 'black')
+        }
+      }
+
+   }
+   return colors
+
+  }
+
     const [gridValues, setGridValues] = useState(Array(30).fill(null))
+
+
     const [wordEntered, setWordEntered] = useState('')
+
+
     const ansIndex = [4, 9, 14, 19, 24, 29]
+
     const checkIndex = [5, 10, 15, 20, 25]
     
     const [answersByUser, setAnswersByUser] = useState(new Map())
+
     const [wordEnterRowIndex, setWordEnterRowIndex] = useState(null)
+
     const [equalLetters, setEqualLetters] = useState([])
+
     const [differentPLaceLetters, setDifferentPlaceLetters] = useState([])
+    const [totalAttempts, setTotalAttempts]  = useState([])
+    const wordLength = 5
+
+    const [attempt, setAttempts] = useState([
+      {rowNumber: null, word: '', color: []},
+      {rowNumber: null, word: '', color: []},
+      {rowNumber: null, word: '', color: []},
+      {rowNumber: null, word: '', color: []},
+      {rowNumber: null, word: '', color: []},
+      {rowNumber: null, word: '', color: []}
+    ])
     
-    const wordleAnswer = 'MAGIC'
+
+  
+    
+    // const wordleAnswer = 'MAGIC'
+   
 
 
      
@@ -37,10 +87,25 @@ const Grid = ({setButtonValue, buttonValue}) => {
                         res += ch
                     })
                     setWordEntered(res)
+                    setTotalAttempts(prevArray => [...prevArray, res])
                     setAnswersByUser((prevMap) => 
                     new Map(prevMap).set(ansIndex[enterIndex] + 1, res )
                     )
                     setWordEnterRowIndex(Math.floor((ansIndex[enterIndex] + 1) / 5))
+
+                    setAttempts((prevArray) => {
+                      const newArray = [...prevArray]
+                      newArray[Math.floor((ansIndex[enterIndex] + 1) / 5) - 1  ] = { ...newArray[Math.floor((ansIndex[enterIndex] + 1) / 5) - 1  ], 
+                        rowNumber: Math.floor((ansIndex[enterIndex] + 1) / 5) - 1  ,
+                        word: res,
+                        color: res ? validate('MAGIC', res) : []
+                       }
+                       return newArray
+                    
+                    })
+                    
+
+                   
                     
                     
 
@@ -78,63 +143,75 @@ const Grid = ({setButtonValue, buttonValue}) => {
     
 
 
-    useEffect(() => {
-        if (wordleAnswer.length === wordEntered.length && wordEntered !== '') {
-          const newEqualLetters = [];
-          const newDifferentPlaceLetters = [];
+    // useEffect(() => {
+    //     if (wordleAnswer.length === wordEntered.length && wordEntered !== '') {
+    //       const newEqualLetters = [];
+    //       const newDifferentPlaceLetters = [];
       
-          for (let i = 0; i < wordleAnswer.length; i++) {
-            if (wordleAnswer[i] === wordEntered[i]) {
-              newEqualLetters.push(i);
-            } else if (wordleAnswer.includes(wordEntered[i])) {
-              newDifferentPlaceLetters.push(i);
-            }
-          }
+    //       for (let i = 0; i < wordleAnswer.length; i++) {
+    //         if (wordleAnswer[i] === wordEntered[i]) {
+    //           newEqualLetters.push(i);
+    //         } else if (wordleAnswer.includes(wordEntered[i])) {
+    //           newDifferentPlaceLetters.push(i);
+    //         }
+    //       }
       
-          setEqualLetters(newEqualLetters);
-          setDifferentPlaceLetters(newDifferentPlaceLetters)
+    //       setEqualLetters(newEqualLetters);
+    //       setDifferentPlaceLetters(newDifferentPlaceLetters)
        
-        } 
-        else {
-          setEqualLetters([]);
-          setDifferentPlaceLetters([]);
-        }
-      }, [wordEntered]);
+    //     } 
+    //     else {
+    //       setEqualLetters([]);
+    //       setDifferentPlaceLetters([]);
+    //     }
+    //   }, [wordEntered]);
 
-      useEffect(() => {
-        const timer = setTimeout(() => {
-          setDifferentPlaceLetters([]);
-          setEqualLetters([]);
 
-        }, 10000); // Reset state after 5 seconds
-    
-        return () => {
-          clearTimeout(timer); // Clear the timer on unmount
-        };
-      }, [equalLetters, differentPLaceLetters]); 
+
+   
 
 
 
     useEffect(()=>{
         console.log(wordEntered)
         console.log(answersByUser)
+        // console.log(validateAnswer())
+        console.log(typeof(wordEntered))
+        console.log(totalAttempts)
+        
+        
+
 
     },[wordEntered])
+
+    useEffect(() => {
+      console.log(attempt)
+      // validate(attempt)
+    },[attempt])
 
     
   return (
     <>
       <div className="text-center">
         {[...Array(6)].map((_, rowIndex) => (
-          <div className={`flex justify-center m-[5px]`} key={rowIndex}>
+          <div className={`flex justify-center m-[3px]`} key={rowIndex}>
             {[...Array(5)].map((_, itemIndex) => {
-           
+              
               return (
                 <div
                   className={`border-2 text-center p-3 border-solid
-                   border-gray-500 w-[52px] h-[52px] m-[5px]
-                    ${equalLetters.indexOf(rowIndex * 5 + itemIndex) != -1 ? 'bg-green-700' : '' }
-                    ${differentPLaceLetters.indexOf(rowIndex * 5 + itemIndex) != -1 ? 'bg-yellow-600': ''}
+                   border-black text-[20px] font-semibold w-[52px] h-[52px] m-[5px]
+                    ${
+                      // equalLetters.indexOf(rowIndex * 5 + itemIndex) != -1 ? 'bg-green-700' : ''
+                      attempt[rowIndex].rowNumber == rowIndex ? 
+                        attempt[rowIndex].color[itemIndex] === 'green' ? 'bg-green-700'
+                         : 
+                        attempt[rowIndex].color[itemIndex] === 'yellow' ? 'bg-[#b59f3b]' 
+                        : ''
+                        : ''
+                       
+                    }
+                    
                     `}
                   key={itemIndex}
                 >
@@ -144,6 +221,7 @@ const Grid = ({setButtonValue, buttonValue}) => {
             })}
           </div>
         ))}
+        <WinModal win={win} />
       </div>
     </>
   );

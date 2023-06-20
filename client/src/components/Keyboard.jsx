@@ -42,7 +42,7 @@ const Keyboard = ({setButtonValue, buttonValue}) => {
                         onMouseDown={() => handleMouseDown(res)}
                         onMouseUp={handleMouseUp}  
                         key={rowIndex} 
-                        className='m-[0.5rem] w-[50px] text-center p-5 rounded-md text-[20px] bg-[#393E46]'>{res}</button>
+                        className='m-[0.5rem] w-[50px] text-center p-5 rounded-md text-[20px] bg-[#D8C4B6] font-medium  '>{res}</button>
                 ))}    
 
         </div>
@@ -55,7 +55,7 @@ const Keyboard = ({setButtonValue, buttonValue}) => {
                         onMouseDown={() => handleMouseDown(res)}
                         onMouseUp={handleMouseUp}
                         key={rowIndex} 
-                        className='m-[0.5rem] w-[50px]  p-5 rounded-md text-[20px] bg-[#393E46] text-center'>{res}</button>
+                        className='m-[0.5rem] w-[50px]  p-5 rounded-md text-[20px] bg-[#D8C4B6] text-center font-medium'>{res}</button>
                 ))}    
 
         </div>
@@ -66,7 +66,7 @@ const Keyboard = ({setButtonValue, buttonValue}) => {
         // onClick={() => handleClick('Enter')}
         onMouseDown={() => handleMouseDown('Enter')}
         onMouseUp={handleMouseUp} 
-        className='m-[0.5rem] w-[90px]  p-5 rounded-md text-[20px] bg-[#393E46]'>
+        className='m-[0.5rem] w-[90px]  p-5 rounded-md text-[20px] bg-[#D8C4B6] font-medium'>
             Enter
         </button>
 
@@ -77,13 +77,13 @@ const Keyboard = ({setButtonValue, buttonValue}) => {
                         onMouseDown={() => handleMouseDown(res)}
                         onMouseUp={handleMouseUp}
                         key={rowIndex} 
-                        className='m-[0.5rem] w-[50px]  p-5 rounded-md text-[20px] bg-[#393E46]'>{res}</button>
+                        className='m-[0.5rem] w-[50px]  p-5 rounded-md text-[20px] bg-[#D8C4B6] font-medium'>{res}</button>
                 ))}    
         <button 
         //  onClick={() => handleClick('Backspace')}
          onMouseDown={() => handleMouseDown('Backspace')}
          onMouseUp={handleMouseUp}
-         className='m-[0.5rem] w-[80px]  p-5 rounded-md text-[20px] bg-[#393E46]'><img src='/clear.png' /></button>
+         className='m-[0.5rem] w-[80px]  p-5 rounded-md text-[20px] bg-[#D8C4B6]'><img src='/clear.png' /></button>
         </div>
         
 
