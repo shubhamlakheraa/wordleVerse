@@ -61,7 +61,7 @@ const Grid = ({setButtonValue, buttonValue}) => {
 
   
     
-    // const wordleAnswer = 'MAGIC'
+    const wordleAnswer = 'MAGIC'
    
 
 
@@ -98,7 +98,7 @@ const Grid = ({setButtonValue, buttonValue}) => {
                       newArray[Math.floor((ansIndex[enterIndex] + 1) / 5) - 1  ] = { ...newArray[Math.floor((ansIndex[enterIndex] + 1) / 5) - 1  ], 
                         rowNumber: Math.floor((ansIndex[enterIndex] + 1) / 5) - 1  ,
                         word: res,
-                        color: res ? validate('MAGIC', res) : []
+                        color: res ? validate(wordleAnswer, res) : []
                        }
                        return newArray
                     
