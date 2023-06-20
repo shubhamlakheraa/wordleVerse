@@ -52,7 +52,7 @@ const WinModal = ({ win }) => {
                     Text in a modal
                 </Typography>
                 <Typography id="modal-modal-description" sx={{mt: 2}}>
-                    This is your modal content
+                    You Won
                 </Typography>
             </Box>
 
