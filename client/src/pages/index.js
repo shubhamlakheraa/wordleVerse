@@ -10,6 +10,18 @@ export default function Home() {
 
 const [buttonValue, setButtonValue] = useState('')
 
+const [attempt, setAttempts] = useState([
+  {rowNumber: null, word: '', color: []},
+  {rowNumber: null, word: '', color: []},
+  {rowNumber: null, word: '', color: []},
+  {rowNumber: null, word: '', color: []},
+  {rowNumber: null, word: '', color: []},
+  {rowNumber: null, word: '', color: []}
+])
+
+const [colSchema, setColSchema] = useState([])
+const [wordEntered, setWordEntered] = useState('')
+
 
 
   return (
@@ -27,8 +39,8 @@ const [buttonValue, setButtonValue] = useState('')
       
       </div>
       
-      <Grid setButtonValue={setButtonValue} buttonValue={buttonValue} />
-      <Keyboard setButtonValue={setButtonValue} buttonValue={buttonValue} />
+      <Grid setButtonValue={setButtonValue} buttonValue={buttonValue} setColSchema={setColSchema} setWordEntered={setWordEntered} wordEntered={wordEntered} />
+      <Keyboard setButtonValue={setButtonValue} buttonValue={buttonValue} colSchema={colSchema} wordEntered={wordEntered}  />
       
     </div>
     </>

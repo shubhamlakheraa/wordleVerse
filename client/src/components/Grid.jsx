@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import WinModal from './Modal'
 
 
-const Grid = ({setButtonValue, buttonValue}) => {
+const Grid = ({setButtonValue, buttonValue, setColSchema, wordEntered, setWordEntered}) => {
 
   const [win, setWin] = useState(false)
 
@@ -32,7 +32,7 @@ const Grid = ({setButtonValue, buttonValue}) => {
     const [gridValues, setGridValues] = useState(Array(30).fill(null))
 
 
-    const [wordEntered, setWordEntered] = useState('')
+    // const [wordEntered, setWordEntered] = useState('')
 
 
     const ansIndex = [4, 9, 14, 19, 24, 29]
@@ -103,11 +103,11 @@ const Grid = ({setButtonValue, buttonValue}) => {
                        return newArray
                     
                     })
+                    // setColSchema(attempt[Math.floor((ansIndex[enterIndex] + 1) / 5) - 1].color)
                     
 
                    
-                    
-                    
+                
 
                 }
             }
@@ -187,7 +187,16 @@ const Grid = ({setButtonValue, buttonValue}) => {
     useEffect(() => {
       console.log(attempt)
       // validate(attempt)
+
+       attempt.map((obj) => {
+        if(obj.word === wordEntered){
+          setColSchema(obj.color)
+        }
+      })
     },[attempt])
+
+
+
 
     
   return (
