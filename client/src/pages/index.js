@@ -1,49 +1,67 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Poppins } from 'next/font/google'
-import Grid from '@/components/Grid'
-import Keyboard from '@/components/Keyboard'
-import {useState, useEffect} from "react"
-const poppin = Poppins({ weight: '600', subsets: ['latin'] })
+import Head from "next/head";
+import Image from "next/image";
+import { Poppins } from "next/font/google";
+import Grid from "@/components/Grid";
+import Keyboard from "@/components/Keyboard";
+import { useState, useEffect } from "react";
+const poppin = Poppins({ weight: "600", subsets: ["latin"] });
 
-export default function Home() {
+const API_URL = 'http://localhost:8000'
 
-const [buttonValue, setButtonValue] = useState('')
+export async function getServerSideProps(context) {
+  let answer 
+  try {
+    const response  = await fetch(`${API_URL}/answer`)
+    const data = await response.json()
+    answer = data
+    console.log(data)
+  } catch (error) {
+    console.log(error.response.data)
+  }
 
-const [attempt, setAttempts] = useState([
-  {rowNumber: null, word: '', color: []},
-  {rowNumber: null, word: '', color: []},
-  {rowNumber: null, word: '', color: []},
-  {rowNumber: null, word: '', color: []},
-  {rowNumber: null, word: '', color: []},
-  {rowNumber: null, word: '', color: []}
-])
+  return {
+    props: {
+      answer
+    }
+  }
+}
 
-const [colSchema, setColSchema] = useState([])
-const [wordEntered, setWordEntered] = useState('')
+export default function Home(props) {
 
-
+  
+  const [buttonValue, setButtonValue] = useState("");
+  const [colSchema, setColSchema] = useState([]);
+  const [wordEntered, setWordEntered] = useState("");
+  // console.log(props.answer)
 
   return (
     <>
-    <div>
-      <Head>
-        <title>WordleVerse</title>
-      </Head>
-      <div className='flex justify-center mt-5'>
-      <img src='/icon.png' />
-      <h1 className={`ml-5 text-4xl text-center  ${poppin.className} `}>
-        
-      WordleVerse
-      </h1>
-      
+      <div>
+        <Head>
+          <title>WordleVerse</title>
+        </Head>
+        <div className="flex justify-center mt-5">
+          <img src="/icon.png" />
+          <h1 className={`ml-5 text-4xl text-center  ${poppin.className} `}>
+            WordleVerse
+          </h1>
+        </div>
+
+        <Grid
+          setButtonValue={setButtonValue}
+          buttonValue={buttonValue}
+          setColSchema={setColSchema}
+          setWordEntered={setWordEntered}
+          wordEntered={wordEntered}
+          answer={props.answer}
+        />
+        <Keyboard
+          setButtonValue={setButtonValue}
+          buttonValue={buttonValue}
+          colSchema={colSchema}
+          wordEntered={wordEntered}
+        />
       </div>
-      
-      <Grid setButtonValue={setButtonValue} buttonValue={buttonValue} setColSchema={setColSchema} setWordEntered={setWordEntered} wordEntered={wordEntered} />
-      <Keyboard setButtonValue={setButtonValue} buttonValue={buttonValue} colSchema={colSchema} wordEntered={wordEntered}  />
-      
-    </div>
     </>
-  
-  )
+  );
 }

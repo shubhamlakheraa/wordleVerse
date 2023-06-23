@@ -11,10 +11,13 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
-    bgcolor: 'background.paper',
+    height: 400,
+    bgcolor: '#D8C4B6',
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
+    borderRadius: '5%',
+    textAlign: "center",
   }
 
 
@@ -43,16 +46,16 @@ const WinModal = ({ win }) => {
         {/* <Button onClick={handleOpen} >Open Modal</Button> */}
         <Modal
         open={open}
-        onClose={handleClose}
+        // onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                    Text in a modal
+                <Typography id="modal-modal-title" variant="h6" component="h2" sx={{mt: 2, fontWeight: "600", fontSize: "40px"}}>
+                    Congratulations 🎉🎉
                 </Typography>
-                <Typography id="modal-modal-description" sx={{mt: 2}}>
-                    You Won
+                <Typography id="modal-modal-description" sx={{mt: 2, fontWeight: "400",fontSize: "50px"}}>
+                    You Won🥇🚀🚀
                 </Typography>
             </Box>
 
