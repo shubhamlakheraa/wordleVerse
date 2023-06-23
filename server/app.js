@@ -2,7 +2,7 @@ const express = require('express')
 const cors = require('cors')
 
 const app = express()
-const answerRouter = require("./routes/answer.router")
+const answerRouter = require("./src/routes/answer.router")
 
 app.use(cors({
     origin: 'http://localhost:3000'
