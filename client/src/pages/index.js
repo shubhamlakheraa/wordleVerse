@@ -6,7 +6,7 @@ import Keyboard from "@/components/Keyboard";
 import { useState, useEffect } from "react";
 const poppin = Poppins({ weight: "600", subsets: ["latin"] });
 
-const API_URL = 'http://localhost:8000'
+const API_URL = 'https://wordleverse.onrender.com'
 
 export async function getServerSideProps(context) {
   let answer 
