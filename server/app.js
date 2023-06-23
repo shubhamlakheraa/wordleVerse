@@ -5,7 +5,7 @@ const app = express()
 const answerRouter = require("./src/routes/answer.router")
 
 app.use(cors({
-    origin: 'http://localhost:3000'
+    origin: 'https://wordle-verse.vercel.app'
 }))
 
 app.use(express.json())
