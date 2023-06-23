@@ -1,26 +1,6 @@
 import { useState, useEffect } from 'react'
 import WinModal from './Modal'
 
-// const API_URL = 'http://localhost:8000'
-
-// export async function getServerSideProps(context) {
-//   let answer 
-//   try {
-//     const response  = await fetch(`${API_URL}/answer`)
-//     const data = await response.json()
-//     answer = data
-//     console.log(data)
-//   } catch (error) {
-//     console.log(error.response.data)
-//   }
-
-//   return {
-//     props: {
-//       answer
-//     }
-//   }
-// }
-
 
 const Grid = ({
   
@@ -29,7 +9,9 @@ const Grid = ({
   wordEntered,
   setWordEntered,
   answer,
+
 }) => {
+
   const [win, setWin] = useState(false);
   const wordleAnswer = answer;
 
@@ -55,7 +37,7 @@ const Grid = ({
 
   const [gridValues, setGridValues] = useState(Array(30).fill(null));
 
-  // const [wordEntered, setWordEntered] = useState('')
+ 
 
   const ansIndex = [4, 9, 14, 19, 24, 29];
 
@@ -65,11 +47,8 @@ const Grid = ({
 
   const [wordEnterRowIndex, setWordEnterRowIndex] = useState(null);
 
-  const [equalLetters, setEqualLetters] = useState([]);
-
-  const [differentPLaceLetters, setDifferentPlaceLetters] = useState([]);
   const [totalAttempts, setTotalAttempts] = useState([]);
-  const wordLength = 5;
+  
 
   const [attempt, setAttempts] = useState([
     { rowNumber: null, word: "", color: [] },
@@ -118,13 +97,13 @@ const Grid = ({
             };
             return newArray;
           });
-          // setColSchema(attempt[Math.floor((ansIndex[enterIndex] + 1) / 5) - 1].color)
+          
         }
       }
     } else if (buttonValue) {
       const index = gridValues.findIndex((value) => value === null);
       if (index !== -1) {
-        //  continue from here
+       
 
         const newLineIndex = checkIndex.indexOf(index);
         if (newLineIndex == -1) {
@@ -142,19 +121,18 @@ const Grid = ({
     }
   }, [buttonValue]);
 
-  useEffect(() => {
-    console.log(wordEntered);
-    console.log(answersByUser);
-    console.log(answer)
-    // console.log(validateAnswer())
-    console.log(typeof wordEntered);
-    console.log(totalAttempts);
-  }, [wordEntered]);
+  // useEffect(() => {
+  //   console.log(wordEntered);
+  //   console.log(answersByUser);
+  //   console.log(answer)
+    
+  //   console.log(typeof wordEntered);
+  //   console.log(totalAttempts);
+  // }, [wordEntered]);
 
   useEffect(() => {
-    console.log(attempt);
-    // validate(attempt)
-
+    // console.log(attempt)
+  
     attempt.map((obj) => {
       if (obj.word === wordEntered) {
         setColSchema(obj.color);
